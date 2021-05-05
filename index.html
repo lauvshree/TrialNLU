@@ -1,0 +1,49 @@
+<html>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+let nluparams = {
+"apikey":"FV5jb36EyiijfJUzIZlHLyKRTMRYUeEf1yg31BJZIURx",
+"url":"https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/618622b0-b431-4198-9495-906b195deab7"
+}
+
+let renderEmotion = ()=>{
+        var data = JSON.stringify({
+    "url": "http://newsroom.ibm.com/Guerbet-and-IBM-Watson-Health-Announce-Strategic-Partnership-for-Artificial-Intelligence-in-Medical-Imaging-Liver",
+    "features": {
+        "sentiment": {},
+        "categories": {},
+        "concepts": {},
+        "entities": {},
+        "keywords": {}
+    }
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function() {
+    if(this.readyState === 4) {
+        console.log(this.responseText);
+        document.getElementById("emotion").innerText=this.responseText;
+    }
+    });
+
+    xhr.open("POST", "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/618622b0-b431-4198-9495-906b195deab7/v1/analyze?version=2019-07-12");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Basic YXBpa2V5OkZWNWpiMzZFeWlpamZKVXpJWmxITHlLUlRNUllVZUVmMXlnMzFCSlpJVVJ4");
+
+    xhr.send(data);
+}
+</script>
+
+<body>
+Enter your text <input type="textarea"/>
+<button onClick="renderEmotion()">Get Emotion</button>
+<div id="emotion">
+
+</div>
+</body>
+</html>
+
